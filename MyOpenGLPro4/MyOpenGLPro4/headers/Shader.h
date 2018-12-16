@@ -15,7 +15,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
+#include "../glm/glm/glm.hpp"
+#include "../glm/glm/gtc/type_ptr.hpp"
 
 class Shader
 {
@@ -31,7 +32,7 @@ public:
     void setBool(const std::string &name, bool value) const;
     void setInt(const std::string &name, int value) const;
     void setFloat(const std::string &name, float value) const;
-    
+    void setGlmValueMat4(const std::string &name, float value[]) const;
     void setVec2(const std::string &name, float value1, float value2) const;
 };
 

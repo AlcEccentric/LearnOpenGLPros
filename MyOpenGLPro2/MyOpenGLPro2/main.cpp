@@ -107,7 +107,7 @@ int main(int argc,char * argv[]) {
         float ourBlue = cos(glfwGetTime()) * 0.5 + 0.5;
         ourShader.use();
         ourShader.setVec2("ourGB", ourGreen, ourBlue);
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+        glBindVertexArray(VAO); // as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);
         
         

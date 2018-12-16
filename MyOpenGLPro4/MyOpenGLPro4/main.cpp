@@ -5,6 +5,9 @@
 #include "headers/Shader.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "headers/stb_image.h"
+#include "glm/glm/glm.hpp"
+#include "glm/glm/gtc/matrix_transform.hpp"
+#include "glm/glm/gtc/type_ptr.hpp"
 
 // framebuffer_size_callback is a callback function to adjust to the resizing
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -49,7 +52,7 @@ int main(int argc,char * argv[]) {
     // tell opengl how to render the window
     // first two specify the location
     // second two specify the size
-//    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, 800, 600);
     
     // framebuffer_size_callback is a callback function to adjust to the resizing
     // tell glfw when window is resized call this function
@@ -121,7 +124,7 @@ int main(int argc,char * argv[]) {
     // begin to load page as texuture
     int width1, height1, nchanels1;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char* data1 = stbi_load("/Users/AlcEccentric/OpenGLPros/MyOpenGLPro3/MyOpenGLPro3/container.jpg", &width1, &height1, &nchanels1, 0);
+    unsigned char* data1 = stbi_load("container.jpg", &width1, &height1, &nchanels1, 0);
     if(data1){
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width1, height1, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -142,7 +145,7 @@ int main(int argc,char * argv[]) {
 
     int width2, height2, nchanels2;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char * data2 = stbi_load("/Users/AlcEccentric/OpenGLPros/MyOpenGLPro3/MyOpenGLPro3/awesomeface.png", &width2, &height2, &nchanels2, 0);
+    unsigned char * data2 = stbi_load("awesomeface.png", &width2, &height2, &nchanels2, 0);
     if(data2){
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width2, height2, 0, GL_RGBA, GL_UNSIGNED_BYTE, data2);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -165,6 +168,17 @@ int main(int argc,char * argv[]) {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, tex2);
     
+    glm::mat4 trans;
+    
+    // glm will multiply the matrix from left to right
+    // so the product here is
+    // T * R * S
+    // since we will put matrix on the left of a vector
+    // i.e. T * R * S * v
+    // thus, the order of these translations are S, R, T
+    trans = glm::translate(trans, glm::vec3(0.5, 0.5, 0));
+    trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+    
     // render loop
     while(!glfwWindowShouldClose(window))
     {
@@ -178,11 +192,13 @@ int main(int argc,char * argv[]) {
         
         float ourGreen = sin(glfwGetTime()) * 0.5 + 0.5;
         float ourBlue = cos(glfwGetTime()) * 0.5 + 0.5;
+        float spinSpeed = glfwGetTime()/100000;
 
-        ourShader.setVec2("ourGB", ourGreen, ourBlue);
+        trans = glm::rotate(trans, glm::radians(360.0f * spinSpeed), glm::vec3(0.0, 0.0, 1.0));
        
-        
         ourShader.use();
+        ourShader.setGlmValueMat4("ourMat", glm::value_ptr(trans));
+        ourShader.setVec2("ourGB", ourGreen, ourBlue);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         

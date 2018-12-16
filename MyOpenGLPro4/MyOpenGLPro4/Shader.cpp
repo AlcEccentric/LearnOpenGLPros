@@ -122,3 +122,7 @@ void Shader::setVec2(const std::string &name, float value1, float value2) const
     glUniform2f(glGetUniformLocation(ID, name.c_str()), value1, value2);
 }
 
+void Shader::setGlmValueMat4(const std::string &name, float value[]) const{
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, value);
+}
+
