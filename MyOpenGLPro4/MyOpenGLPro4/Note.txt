@@ -1,0 +1,5 @@
+
+1  when activating the texture
+use the GL_Texture0/1/... instead of 0/1/...
+
+2. EBO should be bound to GL_ELEMENT_ARRAY_BUFFER not simple GL_ARRAY_BUFFER
