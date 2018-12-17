@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "36C0696421C4A16C006AE3A1"
-               BuildableName = "MyOpenGLPro5"
-               BlueprintName = "MyOpenGLPro5"
-               ReferencedContainer = "container:MyOpenGLPro5.xcodeproj">
+               BuildableName = "MyOpenGLPro6"
+               BlueprintName = "MyOpenGLPro6"
+               ReferencedContainer = "container:MyOpenGLPro6.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36C0696421C4A16C006AE3A1"
-            BuildableName = "MyOpenGLPro5"
-            BlueprintName = "MyOpenGLPro5"
-            ReferencedContainer = "container:MyOpenGLPro5.xcodeproj">
+            BuildableName = "MyOpenGLPro6"
+            BlueprintName = "MyOpenGLPro6"
+            ReferencedContainer = "container:MyOpenGLPro6.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/AlcEccentric/OpenGLPros/MyOpenGLPro5/MyOpenGLPro5"
+      customWorkingDirectory = "/Users/AlcEccentric/OpenGLPros/MyOpenGLPro6/MyOpenGLPro6"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36C0696421C4A16C006AE3A1"
-            BuildableName = "MyOpenGLPro5"
-            BlueprintName = "MyOpenGLPro5"
-            ReferencedContainer = "container:MyOpenGLPro5.xcodeproj">
+            BuildableName = "MyOpenGLPro6"
+            BlueprintName = "MyOpenGLPro6"
+            ReferencedContainer = "container:MyOpenGLPro6.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36C0696421C4A16C006AE3A1"
-            BuildableName = "MyOpenGLPro5"
-            BlueprintName = "MyOpenGLPro5"
-            ReferencedContainer = "container:MyOpenGLPro5.xcodeproj">
+            BuildableName = "MyOpenGLPro6"
+            BlueprintName = "MyOpenGLPro6"
+            ReferencedContainer = "container:MyOpenGLPro6.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

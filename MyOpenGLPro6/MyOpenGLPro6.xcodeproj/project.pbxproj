@@ -30,7 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		36C0696521C4A16C006AE3A1 /* MyOpenGLPro5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyOpenGLPro5; sourceTree = BUILT_PRODUCTS_DIR; };
+		36C0696521C4A16C006AE3A1 /* MyOpenGLPro6 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyOpenGLPro6; sourceTree = BUILT_PRODUCTS_DIR; };
 		36C0697021C4C302006AE3A1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		36C0697221C4C309006AE3A1 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		36C0697421C4C3C2006AE3A1 /* libgltools.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgltools.dylib; path = ../../../../usr/local/lib/libgltools.dylib; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		36C0695C21C4A16C006AE3A1 = {
 			isa = PBXGroup;
 			children = (
-				36C0696721C4A16C006AE3A1 /* MyOpenGLPro5 */,
+				36C0696721C4A16C006AE3A1 /* MyOpenGLPro6 */,
 				36C0696621C4A16C006AE3A1 /* Products */,
 				36C0696F21C4C301006AE3A1 /* Frameworks */,
 			);
@@ -76,12 +76,12 @@
 		36C0696621C4A16C006AE3A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				36C0696521C4A16C006AE3A1 /* MyOpenGLPro5 */,
+				36C0696521C4A16C006AE3A1 /* MyOpenGLPro6 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		36C0696721C4A16C006AE3A1 /* MyOpenGLPro5 */ = {
+		36C0696721C4A16C006AE3A1 /* MyOpenGLPro6 */ = {
 			isa = PBXGroup;
 			children = (
 				36C069A421C6864B006AE3A1 /* main.cpp */,
@@ -95,7 +95,7 @@
 				36C0698F21C538E0006AE3A1 /* Shader.cpp */,
 				36C069A621C689F9006AE3A1 /* NOTICE */,
 			);
-			path = MyOpenGLPro5;
+			path = MyOpenGLPro6;
 			sourceTree = "<group>";
 		};
 		36C0696F21C4C301006AE3A1 /* Frameworks */ = {
@@ -113,9 +113,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		36C0696421C4A16C006AE3A1 /* MyOpenGLPro5 */ = {
+		36C0696421C4A16C006AE3A1 /* MyOpenGLPro6 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 36C0696C21C4A16C006AE3A1 /* Build configuration list for PBXNativeTarget "MyOpenGLPro5" */;
+			buildConfigurationList = 36C0696C21C4A16C006AE3A1 /* Build configuration list for PBXNativeTarget "MyOpenGLPro6" */;
 			buildPhases = (
 				36C0696121C4A16C006AE3A1 /* Sources */,
 				36C0696221C4A16C006AE3A1 /* Frameworks */,
@@ -125,9 +125,9 @@
 			);
 			dependencies = (
 			);
-			name = MyOpenGLPro5;
+			name = MyOpenGLPro6;
 			productName = MyOpenGLPro1;
-			productReference = 36C0696521C4A16C006AE3A1 /* MyOpenGLPro5 */;
+			productReference = 36C0696521C4A16C006AE3A1 /* MyOpenGLPro6 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -144,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 36C0696021C4A16C006AE3A1 /* Build configuration list for PBXProject "MyOpenGLPro5" */;
+			buildConfigurationList = 36C0696021C4A16C006AE3A1 /* Build configuration list for PBXProject "MyOpenGLPro6" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -156,7 +156,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				36C0696421C4A16C006AE3A1 /* MyOpenGLPro5 */,
+				36C0696421C4A16C006AE3A1 /* MyOpenGLPro6 */,
 			);
 		};
 /* End PBXProject section */
@@ -329,7 +329,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		36C0696021C4A16C006AE3A1 /* Build configuration list for PBXProject "MyOpenGLPro5" */ = {
+		36C0696021C4A16C006AE3A1 /* Build configuration list for PBXProject "MyOpenGLPro6" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36C0696A21C4A16C006AE3A1 /* Debug */,
@@ -338,7 +338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36C0696C21C4A16C006AE3A1 /* Build configuration list for PBXNativeTarget "MyOpenGLPro5" */ = {
+		36C0696C21C4A16C006AE3A1 /* Build configuration list for PBXNativeTarget "MyOpenGLPro6" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36C0696D21C4A16C006AE3A1 /* Debug */,

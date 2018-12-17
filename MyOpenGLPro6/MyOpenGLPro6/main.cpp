@@ -9,12 +9,26 @@
 #include "glm/glm/gtc/matrix_transform.hpp"
 #include "glm/glm/gtc/type_ptr.hpp"
 
+// Global variables for camera control
+bool firstMouse = true;
+// note the initial yaw is -90 which means front point to -z at first
+float  fov = 45, pitch = 0, yaw = -90, lastXPos = 400, lastYPos = 300;
+
+glm::vec3 cameraFront;
+
 // framebuffer_size_callback is a callback function to adjust to the resizing
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+// handle mouse move
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+// handle scroll move
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 // when escape is pressed
 // we tell glfw the window should close
 void processInput(GLFWwindow *window);
+// process WASD keys to allow users to move the camera
+void processWASD(GLFWwindow *window, const glm::vec3 &cameraUp, const glm::vec3 &cameraFront, glm::vec3 &cameraPos, float renderTimePerFrame);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -40,6 +54,9 @@ int main(int argc,char * argv[]) {
     }
     // 为该窗口在当前thread设置上下文环境
     glfwMakeContextCurrent(window);
+    // capture the mouse
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetScrollCallback(window, scroll_callback);
     
     // glfwGetProcAddress指向当前系统opengl函数的位置
     // 交给GLAD完成其初始化，由GLAD管理opengl函数
@@ -58,7 +75,7 @@ int main(int argc,char * argv[]) {
     // tell glfw when window is resized call this function
     //We register the callback functions after we've created the window and before the game loop is initiated.
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    
+    glfwSetCursorPosCallback(window, mouse_callback);
     // link the pipeline
     // in order to read file in xcode
     // check Product->Scheme->Edit Scheme->Options->Working Directory: Using custom working directory
@@ -198,8 +215,7 @@ int main(int argc,char * argv[]) {
     glBindTexture(GL_TEXTURE_2D, tex2);
     
     glm::mat4 model, view, project;
-    view = glm::translate(view, glm::vec3(0.0, 0.0, -3.0));
-    project = glm::perspective(glm::radians(45.0f), (float)800/600, 0.1f, 100.0f);
+    
     
     // used to give positions of different cudes in world coordinate system
     glm::vec3 cubePositions[] = {
@@ -215,12 +231,26 @@ int main(int argc,char * argv[]) {
         glm::vec3(-1.3f,  1.0f, -1.5f)
     };
     
+    glm::vec3 cameraPos, cameraUp;
+    cameraPos = glm::vec3(0.0, 0.0, 3.0);
+    cameraFront = glm::vec3(0.0, 0.0, -1.0);
+    cameraUp = glm::vec3(0.0, 1.0, 0.0);
+    
+    
     // enable depth test
     glEnable(GL_DEPTH_TEST);
+    
+    // used to compute the time spent on rendering each frame
+    float lastTime = 0, deltaTime = 0;
+    
     // render loop
     while(!glfwWindowShouldClose(window))
     {
-        // INPUT
+        float currentTime = (float)glfwGetTime();
+        deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+        // INPUT processing
+        processWASD(window, cameraUp, cameraFront, cameraPos, deltaTime);
         processInput(window);
         
         //RENDER HERE
@@ -234,14 +264,27 @@ int main(int argc,char * argv[]) {
        
         ourShader.use();
         
-        ourShader.setGlmValueMat4("view", glm::value_ptr(view));
-        ourShader.setGlmValueMat4("project", glm::value_ptr(project));
+        
+        
         ourShader.setVec2("ourGB", ourGreen, ourBlue);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         
+//        float radius = 10.0f;
+//        float camX = sin(glfwGetTime()) * radius;
+//        float camZ = cos(glfwGetTime()) * radius;
+//        glm::mat4 view;
+//        view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+//        ourShader.setGlmValueMat4("view", glm::value_ptr(view));
+        
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        ourShader.setGlmValueMat4("view", glm::value_ptr(view));
+        
+        project = glm::perspective(glm::radians(fov), (float)800/600, 0.1f, 100.0f);
+        ourShader.setGlmValueMat4("project", glm::value_ptr(project));
+        
         for(unsigned int i = 0; i < 10; i++)
         {
-            //
+            // let all 10 cubes rotate
             glm::mat4 model;
             model = glm::translate(model, cubePositions[i]);
             float angle = 20.0f * i;
@@ -274,10 +317,69 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    
+    if (firstMouse) {
+        lastXPos = xpos;
+        lastYPos = ypos;
+        firstMouse = false;
+    }
+    
+    float xoffset = xpos - lastXPos;
+    float yoffset = -(ypos - lastYPos); // for the positive direction of y axis is down-side
+    lastXPos = xpos;
+    lastYPos = ypos;
+    
+    float sensitive = 0.05;
+    xoffset *= sensitive;
+    yoffset *= sensitive;
+
+    pitch += yoffset;
+    yaw += xoffset;
+    
+    // prevent gimble lock
+    if(pitch > 89.0f)
+        pitch =  89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+    
+    cameraFront.x = cos(glm::radians(yaw));
+    cameraFront.y = sin(glm::radians(pitch));
+    cameraFront.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+    cameraFront = glm::normalize(cameraFront);
+    
+}
+
 // when escape is pressed
 // we tell glfw the window should close
 void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+        
+}
+
+void processWASD(GLFWwindow *window, const glm::vec3 &cameraUp, const glm::vec3 &cameraFront, glm::vec3 &cameraPos, float renderTimePerFrame)
+{
+    float cameraSpeed = 2.5 * renderTimePerFrame;
+    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraFront * cameraSpeed;
+    else if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraFront * cameraSpeed;
+    else if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed;
+    else if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
+    // limit the fov between 1 and 45 degrees
+    if(fov >= 1.0f && fov <= 45.0f)
+        fov -= yoffset;
+    if(fov <= 1.0f)
+        fov = 1.0f;
+    if(fov >= 45.0f)
+        fov = 45.0f;
 }
