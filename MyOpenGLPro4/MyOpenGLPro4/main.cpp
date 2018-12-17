@@ -172,13 +172,13 @@ int main(int argc,char * argv[]) {
     
     // glm will multiply the matrix from left to right
     // so the product here is
-    // T * R * S
+    // T * S * R
     // since we will put matrix on the left of a vector
-    // i.e. T * R * S * v
-    // thus, the order of these translations are S, R, T
+    // i.e. T * S * R * v
+    // thus, the order of these translations are R, S, T
     trans = glm::translate(trans, glm::vec3(0.5, 0.5, 0));
     trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-    
+//    trans = glm::rotate(trans, glm::radians(45.0f ), glm::vec3(0.0, 0.0, 1.0));
     // render loop
     while(!glfwWindowShouldClose(window))
     {
