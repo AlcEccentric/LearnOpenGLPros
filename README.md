@@ -5,3 +5,5 @@ Pro3 is a example record for the "Texture" chapter<br />
 Pro4 is a demo for "Transformations" Chapter<br />
 Pro5 is a demo for "Coordinate System" Chapter<br />
 Pro6 is a demo for "Camera" chapter<br />
+Pro7 is a demo same as Pro6 but is realized with provided cmaera class<br />
+
