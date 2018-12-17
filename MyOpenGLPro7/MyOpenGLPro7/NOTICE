@@ -1,0 +1,6 @@
+Whenever you copy from an existing project, remeber to do these things
+1. rename .xproject
+2. rename the folder under .xproject
+<<<<<!!! IMPORTANT !!!>>>>>>
+3. set Product->Scheme->Edit Scheme->Options->Working Directory: Using custom working directory with the folder name renamed in step 2
+
